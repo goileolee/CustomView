@@ -1,11 +1,11 @@
-package com.cleo.cview.ac;
+package com.goileo.cview.ac;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.cleo.cview.R;
+import com.goileo.cview.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

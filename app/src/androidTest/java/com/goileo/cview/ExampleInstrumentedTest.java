@@ -1,4 +1,4 @@
-package com.cleo.cview;
+package com.goileo.cview;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

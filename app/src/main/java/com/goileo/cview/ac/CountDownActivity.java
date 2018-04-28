@@ -1,11 +1,11 @@
-package com.cleo.cview.ac;
+package com.goileo.cview.ac;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
-import com.cleo.cview.R;
+import com.goileo.cview.R;
 
 /**
  * Created by LY on 2017/3/13.

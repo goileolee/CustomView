@@ -2,11 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
-    <com.cleo.cview.view.DynamicWaveView
-        android:id="@+id/wave_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+    <com.goileo.cview.view.DynamicWaveView
+        android:id="@+id/wave_view_dynamic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp" />
+
+    <com.goileo.cview.view.GoiWaveView
+        android:id="@+id/wave_view_goi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

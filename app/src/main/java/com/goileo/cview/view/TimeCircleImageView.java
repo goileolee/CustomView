@@ -1,4 +1,4 @@
-package com.cleo.cview.view;
+package com.goileo.cview.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;

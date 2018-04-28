@@ -1,4 +1,4 @@
-package com.cleo.cview.view;
+package com.goileo.cview.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,7 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
-import com.cleo.cview.R;
+import com.goileo.cview.R;
 
 /**
  * Created by LY on 2017/3/13.

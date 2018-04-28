@@ -1,4 +1,4 @@
-package com.cleo.cview;
+package com.goileo.cview;
 
 import org.junit.Test;
 

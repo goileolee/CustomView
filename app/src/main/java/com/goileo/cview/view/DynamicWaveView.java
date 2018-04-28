@@ -1,4 +1,4 @@
-package com.cleo.cview.view;
+package com.goileo.cview.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,9 +21,9 @@ public class DynamicWaveView extends View {
 	private static final float STRETCH_FACTOR_A = 4;
 	private static final int OFFSET_Y = 0;
 	/** 第一条水波移动速度 */
-	private static final int TRANSLATE_X_SPEED_ONE = 2;
+	private static final int TRANSLATE_X_SPEED_ONE = 3;
 	/** 第二条水波移动速度 */
-	private static final int TRANSLATE_X_SPEED_TWO = 2;
+	private static final int TRANSLATE_X_SPEED_TWO = 3;
 	private float mCycleFactorW;
 	/** 水平线 */
 	private int levelNumber = 0;
@@ -38,9 +40,14 @@ public class DynamicWaveView extends View {
 	private int mXOneOffset;
 	private int mXTwoOffset;
 
+    private float circleRadius;
 	private Paint mWavePaint;
 	private Paint mWavePaintN;
 	private PaintFlagsDrawFilter mDrawFilter;
+
+	public DynamicWaveView(Context context){
+	    this(context, null);
+    }
 
 	public DynamicWaveView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -63,14 +70,22 @@ public class DynamicWaveView extends View {
 		mWavePaint.setColor(WAVE_COLOR);
 		mWavePaintN.setColor(WAVE_PAINT_COLOR);
 
+
 //        mBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 //        // 防抖动
 //        mBitmapPaint.setDither(true);
 //        mBitmapPaint.setAntiAlias(true);
 //        // 开启图像过滤
 //        mBitmapPaint.setFilterBitmap(true);
-        
+
 	}
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        circleRadius = Math.min(getMeasuredWidth(), getMeasuredHeight()) /2;
+
+    }
 
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -81,13 +96,23 @@ public class DynamicWaveView extends View {
 		for (int i = 0; i < mTotalWidth; i++) {
 			// 减400只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
 			// 绘制第一条水波纹
-			canvas.drawLine(i, mTotalHeight - mResetOneYPositions[i] 
-					- getLevelNumber(), i, mTotalHeight, mWavePaint);
+			canvas.drawLine(i, mTotalHeight - mResetOneYPositions[i] - getLevelNumber(),
+                    i, mTotalHeight, mWavePaint);
 
 			// 绘制第二条水波纹
-			canvas.drawLine(i, mTotalHeight - mResetTwoYPositions[i] 
-					- getLevelNumber(), i, mTotalHeight, mWavePaintN);
+			canvas.drawLine(i, mTotalHeight - mResetTwoYPositions[i] - getLevelNumber(),
+                    i, mTotalHeight, mWavePaintN);
+
 		}
+
+        int sc = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        mWavePaint.setColor(Color.WHITE);
+		canvas.drawRect(0, 0, getWidth(), getHeight(), mWavePaint);
+		mWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+		canvas.drawCircle(getWidth()/2, getHeight()/2, circleRadius, mWavePaint);
+		mWavePaint.setXfermode(null);
+		canvas.restoreToCount(sc);
+        mWavePaint.setColor(WAVE_COLOR);
 
 		// 改变两条波纹的移动点
 		mXOneOffset += mXOffsetSpeedOne;

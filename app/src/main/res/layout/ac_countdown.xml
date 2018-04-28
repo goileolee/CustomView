@@ -5,7 +5,7 @@
     android:background="#0000"
     android:orientation="vertical">
 
-    <!--<com.cleo.cview.view.HorizontalProgressView-->
+    <!--<com.goileo.cview.view.HorizontalProgressView-->
     <!--android:id="@+id/img_view2"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_marginTop="20dp"-->

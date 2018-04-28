@@ -16,7 +16,8 @@ public class GoiWaveView extends View {
 
     private Context context;
     private float circleRadius;
-    private Paint circlePaint;
+    private Paint sinPaint;
+    private Paint cosPaint;
     private int mTotalHeight, mTotalWidth;
 
     private int numberA = 10; // 峰值
@@ -39,10 +40,14 @@ public class GoiWaveView extends View {
     }
 
     private void init(){
-        circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circlePaint.setAntiAlias(true);
-        circlePaint.setStyle(Paint.Style.FILL);
-        circlePaint.setColor(Color.BLUE);
+        sinPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        sinPaint.setAntiAlias(true);
+        sinPaint.setStyle(Paint.Style.FILL);
+        sinPaint.setColor(Color.BLUE);
+        cosPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        cosPaint.setAntiAlias(true);
+        cosPaint.setStyle(Paint.Style.FILL);
+        cosPaint.setColor(Color.RED);
 
     }
 
@@ -67,9 +72,11 @@ public class GoiWaveView extends View {
 
         for(int i = 0; i < mTotalHeight; i ++){
             // 计算出横坐标 i 对应的 纵坐标值 positionY
-            float positionY = (float) (numberA * Math.sin(FACTOR_W *i) + OFFSET_Y);
+            float sinPositionY = (float) (numberA * Math.sin(FACTOR_W *i) + OFFSET_Y);
+            float cosPositionY = (float) (numberA * Math.cos(FACTOR_W *i) + OFFSET_Y);
             // 画竖线，从起始位置(0, mTotalHeight - 0 - 100)画到终点坐标(0, mTotalHeight)
-            canvas.drawLine(i, mTotalHeight - positionY - 100, i, mTotalHeight, circlePaint);
+            canvas.drawLine(i, mTotalHeight - sinPositionY - 100, i, mTotalHeight, sinPaint);
+            canvas.drawLine(i, mTotalHeight - cosPositionY - 100, i, mTotalHeight, cosPaint);
         }
 
     }

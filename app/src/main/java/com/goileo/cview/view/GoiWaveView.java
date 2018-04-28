@@ -54,24 +54,24 @@ public class GoiWaveView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-
-        for(int i = 0; i < mTotalHeight; i ++){
-            float positionY = (float) (numberA * Math.sin(FACTOR_W *i) + OFFSET_Y);
-            canvas.drawLine(i, mTotalHeight - positionY - 100, i, mTotalHeight, circlePaint);
-        }
-
-
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mTotalWidth = w; // 控件的宽度
+        mTotalHeight = h; // 控件的高度
+        FACTOR_W = (float) (2 * Math.PI / mTotalWidth); // 定义波形的周期为控件的宽度，即 ω：周期
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mTotalWidth = w;
-        mTotalHeight = h;
-        FACTOR_W = (float) (2 * Math.PI / mTotalWidth);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        for(int i = 0; i < mTotalHeight; i ++){
+            // 计算出横坐标 i 对应的 纵坐标值 positionY
+            float positionY = (float) (numberA * Math.sin(FACTOR_W *i) + OFFSET_Y);
+            // 画竖线，从起始位置(0, mTotalHeight - 0 - 100)画到终点坐标(0, mTotalHeight)
+            canvas.drawLine(i, mTotalHeight - positionY - 100, i, mTotalHeight, circlePaint);
+        }
+
     }
 
     /**
